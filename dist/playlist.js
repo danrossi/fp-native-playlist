@@ -48,6 +48,7 @@
 
 	events.PLAYLIST_CHANGED = "playlistChanged";
 	events.PLAYLIST_ITEM_CHANGE = "playlistItemChange";
+	events.PLAYLIST_ITEM_CHANGED = "playlistItemChanged";
 
 	var PlaylistManager = function () {
 		function PlaylistManager(opts, video) {
@@ -113,8 +114,10 @@
 
 				//wait for load start then send item change event
 				video.once(events.LOAD_START, function () {
-					_this.onItemChange(i, opts);
+					_this.onItemChanged(i, opts);
 				});
+
+				video.emit(events.PLAYLIST_ITEM_CHANGE, opts);
 
 				//set the new source
 				video.setSrc(opts.src);
@@ -184,16 +187,16 @@
 	   */
 
 		}, {
-			key: "onItemChange",
-			value: function onItemChange(i, opts) {
+			key: "onItemChanged",
+			value: function onItemChanged(i, opts) {
 				var video = this.video;
 
 				//set the current index
 				video.index = i;
 				video.is_last = i == this.length;
 
-				//send the item change event
-				video.emit(events.PLAYLIST_ITEM_CHANGE, opts);
+				//send the item changed event
+				video.emit(events.PLAYLIST_ITEM_CHANGED, opts);
 
 				//toggle to continue playback.
 				video.togglePlay();
@@ -292,33 +295,32 @@
 
 	flowplayer(function (opts, root, video) {
 
-	   if (!opts.playlist) return;
+	    if (!opts.playlist) return;
 
-	   var events = flowplayer.events,
-	       plManager = new PlaylistManager(opts, video);
+	    var events = flowplayer.events,
+	        plManager = new PlaylistManager(opts, video);
 
-	   video.on(events.ENDED, function () {
-	      var advance = typeof opts.advance === 'undefined' ? true : opts.advance,
-	          index = plManager.index,
-	          length = plManager.length;
+	    video.on(events.ENDED, function () {
+	        var advance = typeof opts.advance === 'undefined' ? true : opts.advance,
+	            index = plManager.index,
+	            length = plManager.length;
+	        if (!advance) return;
 
-	      if (!advance) return;
+	        var next = index + 1;
 
-	      var next = index >= 0 ? index + 1 : undefined;
+	        if (next < length || opts.loop) {
+	            next = next === length ? 0 : next;
+	            plManager.playItem(next);
+	        } else {
+	            if (playlist.length > 1) {
+	                plManager.playItem(0);
+	            }
+	        }
+	    });
 
-	      if (next < length || opts.loop) {
-	         next = next === length ? 0 : next;
-	         plManager.playItem(next);
-	      } else {
-	         if (playlist.length > 1) {
-	            plManager.playItem(0);
-	         }
-	      }
-	   });
-
-	   video.on(events.MOUNT, function () {
-	      video.emit(events.PLAYLIST_CHANGED, plManager.playlist);
-	   });
+	    video.on(events.MOUNT, function () {
+	        video.emit(events.PLAYLIST_CHANGED, plManager.playlist);
+	    });
 	});
 
 })));

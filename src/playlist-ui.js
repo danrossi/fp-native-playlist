@@ -23,7 +23,7 @@ flowplayer(function(opts, root, video) {
     video.on(events.PLAYLIST_CHANGED, function(e) {
         //set new playlist on playlist change event
         ui.playlist = e.data;
-    }).on(events.PLAYLIST_ITEM_CHANGE, function() {
+    }).on(events.PLAYLIST_ITEM_CHANGED, function() {
         //set new item index on playlist item change event
         ui.index = video.index;
     });

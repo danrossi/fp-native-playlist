@@ -18,6 +18,7 @@ const events = flowplayer.events,
 
 events.PLAYLIST_CHANGED = "playlistChanged";
 events.PLAYLIST_ITEM_CHANGE = "playlistItemChange";
+events.PLAYLIST_ITEM_CHANGED = "playlistItemChanged";
 
 export default class PlaylistManager {
 	
@@ -101,8 +102,10 @@ export default class PlaylistManager {
 
 	    //wait for load start then send item change event
 	    video.once(events.LOAD_START, () => {
-	    	this.onItemChange(i, opts);
+	    	this.onItemChanged(i, opts);
 	    });
+
+	    video.emit(events.PLAYLIST_ITEM_CHANGE, opts);
 
 	    //set the new source
 	    video.setSrc(opts.src);
@@ -158,15 +161,15 @@ export default class PlaylistManager {
  	/**
  	 * Dispatch playlist item change event on load start
  	 */
-	onItemChange(i, opts) {
+	onItemChanged(i, opts) {
 		const video = this.video;
 
 		//set the current index
 		video.index = i;
 	    video.is_last = i == this.length;
 
-	    //send the item change event
-	    video.emit(events.PLAYLIST_ITEM_CHANGE, opts);
+	    //send the item changed event
+	    video.emit(events.PLAYLIST_ITEM_CHANGED, opts);
 
 	    //toggle to continue playback.
 	    video.togglePlay();
