@@ -12,17 +12,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
- import PlaylistUI from './PlaylistUI';
+import PlaylistUI from './PlaylistUI';
 
 flowplayer(function(opts, root, video) {
-
     if (!opts.playlist) return;
-
+    
     const ui = new PlaylistUI(root, (index) => video.playItem(index)),
-    events = flowplayer.events;
-
-	video.on(events.PLAYLIST_CHANGED, function(e) {
+        events = flowplayer.events;
+    
+    video.on(events.PLAYLIST_CHANGED, function(e) {
         //set new playlist on playlist change event
         ui.playlist = e.data;
     }).on(events.PLAYLIST_ITEM_CHANGE, function() {
