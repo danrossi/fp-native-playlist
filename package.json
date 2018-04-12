@@ -1,0 +1,26 @@
+{
+  "name": "playlist",
+  "version": "1.0.3",
+  "main": "",
+  "directories": {},
+  "dependencies": {},
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-preset-es2015-rollup": "^3.0.0",
+    "rollup": "^0.57.1",
+    "rollup-plugin-babel": "^3.0.3",
+    "rollup-plugin-uglify-es": "0.0.1",
+    "stylus": "^0.54.5",
+    "uglify-es": "^3.3.9"
+  },
+  "scripts": {
+    "css": "stylus style/playlist.styl -o dist/playlist.css",
+    "css-min": "stylus -c style/playlist.styl -o dist/playlist.min.css",
+    "build-js": "rollup -c",
+    "build": "npm run css && npm run css-min && npm run build-js"
+  },
+  "private": true,
+  "author": "Electroteque Media",
+  "license": "",
+  "description": ""
+}

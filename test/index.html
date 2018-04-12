@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <title></title>
+
+    <link href="//cdn.flowplayer.com/releases/native/edge/style/flowplayer.css" rel="stylesheet">
+                <script src="//cdn.flowplayer.com/releases/native/edge/flowplayer.min.js">
+                </script>
+
+                 <link rel="stylesheet" href="../dist/playlist.css"/>
+
+                <script src="../dist/playlist.js">
+                </script>
+
+                <script src="../dist/playlist-ui.js">
+                </script>
+</head>
+<body>
+
+<div id="player"></div>
+
+ <script>
+
+        !(function () {
+
+
+            var player = flowplayer("#player", {
+           
+                playlist: [
+                {
+                   src: [
+                    
+                    {type: "video/webm", src: "//videos.electroteque.org/bitrate/big_buck_bunny_2000k.webm"},
+                    {type: "video/mp4", src: "//videos.electroteque.org/bitrate/big_buck_bunny_2000k.mp4"},
+                    {type: "video/ogg", src: "//videos.electroteque.org/bitrate/big_buck_bunny_2000k.ogv"}
+                    ]
+                },
+                {
+                        src: [
+                            {type: "video/webm", src: "//videos.electroteque.org/bitrate/elephants_dream_600k.webm"},
+                            {type: "video/mp4", src: "//videos.electroteque.org/bitrate/elephants_dream_600k.mp4"},
+                            {type: "video/ogg", src: "//videos.electroteque.org/bitrate/elephants_dream_600k.ogv"},
+                            {type: "video/flash", src: "mp4:bitrate/elephants_dream_600k.mp4"}
+                        ]
+                    }
+              ]
+
+                
+            });
+
+            
+
+
+        })();
+    </script>
+
+
+</body>
+
+</html>

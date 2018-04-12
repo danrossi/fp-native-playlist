@@ -1,0 +1,1 @@
+.fp-playlist{position:absolute;right:.4em;bottom:3em;width:100%;text-align:center;}.fp-playlist a{background-color:#fff;height:.8em;border-radius:50%;width:.8em;opacity:.7;display:inline-block;transition:transform .2s;}.fp-playlist a:hover{transform:scale(1.2,1.2)}.fp-playlist a.is-active{opacity:1}
