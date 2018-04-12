@@ -3,6 +3,7 @@
   right: 0.4em;
   bottom: 3em;
   width: 100%;
+  display: none;
   text-align: center;
 }
 .flowplayer .fp-playlist a {

@@ -172,7 +172,8 @@ export default class PlaylistManager {
 	    video.emit(events.PLAYLIST_ITEM_CHANGED, opts);
 
 	    //toggle to continue playback.
-	    video.togglePlay();
+	    //video.togglePlay();
+	    if (video.paused) video.play();
 	}
 
 	/**
