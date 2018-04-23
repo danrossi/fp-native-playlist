@@ -33,7 +33,7 @@ flowplayer(function(opts, root, video) {
             next = next === length ? 0 : next;
             plManager.playItem(next);
         } else {
-            if (playlist.length > 1) {
+            if (length > 1) {
                 plManager.playItem(0);
             }
         }
